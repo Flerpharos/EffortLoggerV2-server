@@ -22,11 +22,13 @@ function init(router) {
       if (id == null || id == undefined) {
         context.body = await table.findMany();
       } else {
-        context.body = [await table.findUnique({
-          where: {
-	    id: parseInt(id),
-          },
-        }), ];
+        context.body = [
+          await table.findUnique({
+            where: {
+              id: parseInt(id),
+            },
+          }),
+        ];
       }
     } catch (err) {
       context.throw(500, err.message);
@@ -53,11 +55,13 @@ function init(router) {
 
     try {
       if (id == null || id == undefined) {
-        context.body = await table.create({ data: context.request.body });
+        context.body = [await table.create({ data: context.request.body })];
       } else {
-        context.body = await table.create({
-		data: { ...context.request.body, id: parseInt(id) },
-        });
+        context.body = [
+          await table.create({
+            data: { ...context.request.body, id: parseInt(id) },
+          }),
+        ];
       }
     } catch (err) {
       context.throw(500, err.message);
@@ -82,17 +86,15 @@ function init(router) {
     }
 
     try {
-      await table.update({
-        where: {
-		id: parseInt(id),
-        },
-        // XXX implement some form of data validation
-        data: context.request.body,
-      });
-
-      context.body = {
-        ok: true,
-      };
+      context.body = [
+        await table.update({
+          where: {
+            id: parseInt(id),
+          },
+          // XXX implement some form of data validation
+          data: context.request.body,
+        }),
+      ];
     } catch (err) {
       context.throw(500, err.message);
     }
@@ -119,13 +121,11 @@ function init(router) {
     try {
       await table.delete({
         where: {
-		id: parseInt(id),
+          id: parseInt(id),
         },
       });
 
-      context.body = {
-        ok: true,
-      };
+      context.body = [];
     } catch (err) {
       context.throw(500, err.message);
     }
