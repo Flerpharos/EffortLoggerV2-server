@@ -1,5 +1,6 @@
 const Koa = require("koa");
 const Router = require("@koa/router");
+const cors = require("@koa/cors");
 // const { PrismaClient } = require("@prisma/client");
 const { bodyParser } = require("@koa/bodyparser");
 
@@ -15,6 +16,8 @@ const { authenticate } = require("./lib.js");
 
 // app.context.auth = getAuth();
 app.context.prisma = prisma;
+
+app.use(cors());
 
 require("./routes").forEach((route) => {
   if (route.nest) {

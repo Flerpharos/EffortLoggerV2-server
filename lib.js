@@ -1,4 +1,4 @@
-const permission = require("../permission.json");
+// const permission = require("../permission.json");
 
 /**
  * @async
@@ -89,7 +89,7 @@ async function authorize(context, serviceName) {
 
   // TODO
 
-  return permission.DEFAULT;
+  return 1;
 
   if (!Service) {
     throw new Error(`No such service ${serviceName}`);
