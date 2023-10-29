@@ -61,7 +61,7 @@ async function authenticate(context, next) {
       if (statusCode == 500) {
         throw err;
       } else {
-        context.headers["X-Error-Message"] = message;
+        context.set("X-Error-Message", message);
       }
     }
   } catch (err) {
