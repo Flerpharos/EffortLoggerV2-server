@@ -20,7 +20,7 @@ function init(router) {
 
     try {
       if (id == null || id == undefined) {
-        context.body = await table.getMany();
+        context.body = await table.findMany();
       } else {
         context.body = await table.findUnique({
           where: {
