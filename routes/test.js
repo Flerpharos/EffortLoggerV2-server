@@ -53,6 +53,7 @@ function init(router) {
 
     const id = context.headers["x-data-id"];
 
+    // XXX implement some form of data validation
     try {
       if (id == null || id == undefined) {
         context.body = [await table.create({ data: context.request.body })];
