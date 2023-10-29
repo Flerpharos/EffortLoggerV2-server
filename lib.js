@@ -54,9 +54,15 @@ async function authenticate(context, next) {
     } catch (err) {
       errorIn = true;
 
-      context.status = 500;
+      const { statusCode, message } = err;
 
-      throw err;
+      context.status = statusCode;
+
+      if (statusCode == 500) {
+        throw err;
+      } else {
+        context.headers["X-Error-Message"] = message;
+      }
     }
   } catch (err) {
     // context.set(
