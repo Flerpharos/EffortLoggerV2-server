@@ -1,7 +1,7 @@
 const Koa = require("koa");
 const Router = require("@koa/router");
 const cors = require("@koa/cors");
-// const { PrismaClient } = require("@prisma/client");
+const { PrismaClient } = require("@prisma/client");
 const { bodyParser } = require("@koa/bodyparser");
 
 const app = new Koa();
