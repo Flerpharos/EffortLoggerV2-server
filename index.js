@@ -17,7 +17,7 @@ const { authenticate } = require("./lib.js");
 // app.context.auth = getAuth();
 app.context.prisma = prisma;
 
-app.use(cors());
+app.use(cors({ exposeHeaders: "x-error-message" }));
 
 require("./routes").forEach((route) => {
   if (route.nest) {
