@@ -30,6 +30,8 @@ model EffortLog {
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("effortlog")
 }
 
 model BackupLog {
@@ -42,4 +44,6 @@ model BackupLog {
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("backuplog")
 }
