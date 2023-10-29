@@ -62,7 +62,10 @@ async function authenticate(context, next) {
         throw err;
       } else {
         console.log(message);
-        context.set("x-error-message", new String(message).trim());
+        context.set(
+          "x-error-message",
+          encodeURIComponent(new String(message).trim())
+        );
       }
     }
   } catch (err) {
