@@ -2,68 +2,133 @@
 // const { randomBytes } = require("crypto");
 
 function init(router) {
-  router.get("/tables/users", async (context, next) => {
-    const current = [
-      {
-        username: "Test username",
-        password: "Test password (should be a hash)",
-        role: 0,
-      },
-      {
-        username: "User 2",
-        password: "random numbers 2312347912",
-        role: 1,
-      },
-      {
-        username: "1320908",
-        password: "98-0hf08-283hn123ki98y97(*!@Y#!@)+#)J",
-        role: 2,
-      },
-    ];
+  const MAX_ROWS = 100;
 
-    context.body = current;
+  router.get("/tables/:table", async (context, next) => {
+    const tableName = context.params.table;
+
+    /** @type {import("@prisma/client").PrismaClient} */
+    const Prisma = context.prisma;
+
+    const table = Prisma[tableName];
+
+    if (table == undefined || table == null) {
+      context.throw(404, "No table with that name!");
+    }
+
+    const id = context.headers["X-Data-ID"];
+
+    try {
+      if (id == null || id == undefined) {
+        context.body = await table.getMany();
+      } else {
+        context.body = await table.findUnique({
+          where: {
+            id,
+          },
+        });
+      }
+    } catch (err) {
+      context.throw(500, err.message);
+    }
+  });
+  router.put("/tables/:table", async (context, next) => {
+    const tableName = context.params.table;
+
+    /** @type {import("@prisma/client").PrismaClient} */
+    const Prisma = context.prisma;
+
+    const table = Prisma[tableName];
+
+    if (table == undefined || table == null) {
+      context.throw(404, "No table with that name!");
+    }
+
+    const count = await table.count();
+    if (count >= MAX_ROWS) {
+      context.throw(403, "Too many rows");
+    }
+
+    const id = context.headers["X-Data-ID"];
+
+    try {
+      if (id == null || id == undefined) {
+        context.body = await table.create({ data: context.request.body });
+      } else {
+        context.body = await table.create({
+          data: { ...context.request.body, id },
+        });
+      }
+    } catch (err) {
+      context.throw(500, err.message);
+    }
+  });
+  router.post("/tables/:table", async (context, next) => {
+    const tableName = context.params.table;
+
+    /** @type {import("@prisma/client").PrismaClient} */
+    const Prisma = context.prisma;
+
+    const table = Prisma[tableName];
+
+    if (table == undefined || table == null) {
+      context.throw(404, "No table with that name!");
+    }
+
+    const id = context.headers["X-Data-ID"];
+
+    if (id == null || id == undefined) {
+      context.throw(409, "Need ID field");
+    }
+
+    try {
+      await table.update({
+        where: {
+          id,
+        },
+        // XXX implement some form of data validation
+        data: context.request.body,
+      });
+
+      context.body = {
+        ok: true,
+      };
+    } catch (err) {
+      context.throw(500, err.message);
+    }
   });
 
-  router.get("/tables/effortlog", async (context, next) => {
-    const current = [
-      {
-        id: 0,
-        start: new Date("Jan 3 2023 18:32:00"),
-        end: new Date("Jan 3 2023 18:31:00"),
-        lifeCycle: "this should register as invalid",
-        effortCategory: "uhoh",
-        deliverable: "deliver us",
-      },
-      {
-        id: 1,
-        start: new Date("Jan 1 2023 18:32:00"),
-        end: new Date("Jan 2 2023 18:31:00"),
-        lifeCycle: "test lifecycle",
-        effortCategory: "test effort type",
-        deliverable: "test deliverable",
-      },
-    ];
-  });
+  router.del("/tables/:table", async (context, next) => {
+    const tableName = context.params.table;
 
-  router.get("/tables/backuplog", async (context, next) => {
-    const current = [
-      {
-        id: 0,
-        start: new Date("Jan 3 2023 18:32:00"),
-        end: new Date("Jan 3 2023 18:31:00"),
-        lifeCycle: "this should register as backup invalid",
-        effortCategory: "uhoh",
-        deliverable: "deliver us",
-      },
-      {
-        id: 1,
-        start: new Date("Jan 1 2023 18:32:00"),
-        end: new Date("Jan 2 2023 18:31:00"),
-        lifeCycle: "test backup",
-        effortCategory: "test effort type",
-        deliverable: "test deliverable",
-      },
-    ];
+    /** @type {import("@prisma/client").PrismaClient} */
+    const Prisma = context.prisma;
+
+    const table = Prisma[tableName];
+
+    if (table == undefined || table == null) {
+      context.throw(404, "No table with that name!");
+    }
+
+    const id = context.headers["X-Data-ID"];
+
+    if (id == null || id == undefined) {
+      context.throw(409, "Need ID field");
+    }
+
+    try {
+      await table.delete({
+        where: {
+          id,
+        },
+      });
+
+      context.body = {
+        ok: true,
+      };
+    } catch (err) {
+      context.throw(500, err.message);
+    }
   });
 }
 

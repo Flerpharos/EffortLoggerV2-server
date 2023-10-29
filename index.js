@@ -5,7 +5,7 @@ const { bodyParser } = require("@koa/bodyparser");
 
 const app = new Koa();
 const router = new Router();
-// const prisma = new PrismaClient();
+const prisma = new PrismaClient();
 
 const { authenticate } = require("./lib.js");
 
@@ -14,7 +14,7 @@ const { authenticate } = require("./lib.js");
 // });
 
 // app.context.auth = getAuth();
-// app.context.prisma = prisma;
+app.context.prisma = prisma;
 
 require("./routes").forEach((route) => {
   if (route.nest) {

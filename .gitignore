@@ -1,0 +1,4 @@
+node_modules/
+.env
+prisma/stores.sqlite
+prisma/stores.sqlite-journal
