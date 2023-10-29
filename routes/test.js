@@ -16,17 +16,17 @@ function init(router) {
       context.throw(404, "No table with that name!");
     }
 
-    const id = context.headers["X-Data-ID"];
+    const id = context.headers["x-data-id"];
 
     try {
       if (id == null || id == undefined) {
         context.body = await table.findMany();
       } else {
-        context.body = await table.findUnique({
+        context.body = [await table.findUnique({
           where: {
-            id,
+	    id: parseInt(id),
           },
-        });
+        }), ];
       }
     } catch (err) {
       context.throw(500, err.message);
@@ -49,14 +49,14 @@ function init(router) {
       context.throw(403, "Too many rows");
     }
 
-    const id = context.headers["X-Data-ID"];
+    const id = context.headers["x-data-id"];
 
     try {
       if (id == null || id == undefined) {
         context.body = await table.create({ data: context.request.body });
       } else {
         context.body = await table.create({
-          data: { ...context.request.body, id },
+		data: { ...context.request.body, id: parseInt(id) },
         });
       }
     } catch (err) {
@@ -75,7 +75,7 @@ function init(router) {
       context.throw(404, "No table with that name!");
     }
 
-    const id = context.headers["X-Data-ID"];
+    const id = context.headers["x-data-id"];
 
     if (id == null || id == undefined) {
       context.throw(409, "Need ID field");
@@ -84,7 +84,7 @@ function init(router) {
     try {
       await table.update({
         where: {
-          id,
+		id: parseInt(id),
         },
         // XXX implement some form of data validation
         data: context.request.body,
@@ -110,7 +110,7 @@ function init(router) {
       context.throw(404, "No table with that name!");
     }
 
-    const id = context.headers["X-Data-ID"];
+    const id = context.headers["x-data-id"];
 
     if (id == null || id == undefined) {
       context.throw(409, "Need ID field");
@@ -119,7 +119,7 @@ function init(router) {
     try {
       await table.delete({
         where: {
-          id,
+		id: parseInt(id),
         },
       });
 
