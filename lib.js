@@ -61,6 +61,7 @@ async function authenticate(context, next) {
       if (statusCode == 500) {
         throw err;
       } else {
+        console.log(message);
         context.set("x-error-message", new String(message).trim());
       }
     }
