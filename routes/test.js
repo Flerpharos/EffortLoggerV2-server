@@ -31,7 +31,7 @@ function init(router) {
         ];
       }
     } catch (err) {
-      context.throw(500, err.message);
+      context.throw(418, err.message);
     }
   });
   router.put("/tables/:table", async (context, next) => {
@@ -64,7 +64,7 @@ function init(router) {
         ];
       }
     } catch (err) {
-      context.throw(500, err.message);
+      context.throw(418, err.message);
     }
   });
   router.post("/tables/:table", async (context, next) => {
@@ -96,7 +96,7 @@ function init(router) {
         }),
       ];
     } catch (err) {
-      context.throw(500, err.message);
+      context.throw(418, err.message);
     }
   });
 
@@ -127,7 +127,7 @@ function init(router) {
 
       context.body = [];
     } catch (err) {
-      context.throw(500, err.message);
+      context.throw(418, err.message);
     }
   });
 }
