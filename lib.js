@@ -64,6 +64,7 @@ async function authenticate(context, next) {
         console.log(message);
         context.set(
           "x-error-message",
+          // TODO Prisma is giving overly detailed error messages. Make sure to trim them down.
           encodeURIComponent(new String(message).trim())
         );
       }

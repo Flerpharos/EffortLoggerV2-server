@@ -47,3 +47,27 @@ model BackupLog {
 
   @@map("backuplog")
 }
+
+model Project {
+  id          Int    @id
+  name        String @unique
+  description String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("project")
+}
+
+model UserStory {
+  id      Int @id
+  project Int
+
+  name        String
+  description String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("userstoryS")
+}
