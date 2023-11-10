@@ -8,16 +8,15 @@ function init(router) {
     const tableName = context.params.table;
 
     if (tablename.startsWith("__")) {
-      context.throw(404, "No table with that name!");
+      context.throw(404, `No table with that name (${tableName})!`);
     }
 
     /** @type {import("@prisma/client").PrismaClient} */
     const Prisma = context.prisma;
-
-    const table = Prisma[tableName];
-
-    if (table == undefined || table == null) {
-      context.throw(404, "No table with that name!");
+    try {
+      const table = Prisma[tableName];
+    } catch (err) {
+      context.throw(404, `No table with that name (${tableName})!`);
     }
 
     const id = context.headers["x-data-id"];
@@ -42,16 +41,15 @@ function init(router) {
     const tableName = context.params.table;
 
     if (tablename.startsWith("__")) {
-      context.throw(404, "No table with that name!");
+      context.throw(404, `No table with that name (${tableName})!`);
     }
 
     /** @type {import("@prisma/client").PrismaClient} */
     const Prisma = context.prisma;
-
-    const table = Prisma[tableName];
-
-    if (table == undefined || table == null) {
-      context.throw(404, "No table with that name!");
+    try {
+      const table = Prisma[tableName];
+    } catch (err) {
+      context.throw(404, `No table with that name (${tableName})!`);
     }
 
     const count = await table.count();
@@ -80,16 +78,15 @@ function init(router) {
     const tableName = context.params.table;
 
     if (tablename.startsWith("__")) {
-      context.throw(404, "No table with that name!");
+      context.throw(404, `No table with that name (${tableName})!`);
     }
 
     /** @type {import("@prisma/client").PrismaClient} */
     const Prisma = context.prisma;
-
-    const table = Prisma[tableName];
-
-    if (table == undefined || table == null) {
-      context.throw(404, "No table with that name!");
+    try {
+      const table = Prisma[tableName];
+    } catch (err) {
+      context.throw(404, `No table with that name (${tableName})!`);
     }
 
     const id = context.headers["x-data-id"];
@@ -117,16 +114,15 @@ function init(router) {
     const tableName = context.params.table;
 
     if (tablename.startsWith("__")) {
-      context.throw(404, "No table with that name!");
+      context.throw(404, `No table with that name (${tableName})!`);
     }
 
     /** @type {import("@prisma/client").PrismaClient} */
     const Prisma = context.prisma;
-
-    const table = Prisma[tableName];
-
-    if (table == undefined || table == null) {
-      context.throw(404, "No table with that name!");
+    try {
+      const table = Prisma[tableName];
+    } catch (err) {
+      context.throw(404, `No table with that name (${tableName})!`);
     }
 
     const id = context.headers["x-data-id"];
