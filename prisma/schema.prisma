@@ -71,3 +71,25 @@ model UserStory {
 
   @@map("userstory")
 }
+
+model PlanningPoker {
+  id      Int @id
+  storyId Int
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("planningpoker")
+}
+
+model Notes {
+  id        Int    @id
+  note      String
+  points    Int
+  sessionId Int
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("notes")
+}
