@@ -24,9 +24,9 @@ model EffortLog {
   id             Int      @id @default(autoincrement())
   start          DateTime
   end            DateTime
-  lifeCycle      String
-  effortCategory String
-  deliverable    String
+  lifeCycle      Int
+  effortCategory Int
+  deliverable    Int
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -34,24 +34,28 @@ model EffortLog {
   @@map("effortlog")
 }
 
-model BackupLog {
-  id             Int      @id
-  start          DateTime
-  end            DateTime
-  lifeCycle      String
-  effortCategory String
-  deliverable    String
+model DefectLog {
+  id Int @id @default(autoincrement())
+
+  name        String
+  description String
+  fix         String
+  status      Boolean @default(false)
+
+  lifeCycleIncluded Int
+  lifeCycleExcluded Int?
+  defectCategory    Int
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  @@map("backuplog")
+  @@map("defectlog")
 }
 
 model Project {
-  id          Int    @id
+  id          Int    @id @default(autoincrement())
   name        String @unique
-  description String
+  description String @default("")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -59,8 +63,60 @@ model Project {
   @@map("project")
 }
 
+model LifeCycle {
+  id        Int  @id @default(autoincrement())
+  projectId Int?
+
+  name        String
+  description String @default("")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("lifecycle")
+}
+
+model DefectCategory {
+  id        Int  @id @default(autoincrement())
+  projectId Int?
+
+  name        String
+  description String @default("")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("defectcategory")
+}
+
+model EffortCategory {
+  id        Int  @id @default(autoincrement())
+  projectId Int?
+
+  name        String
+  description String @default("")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("effortcategory")
+}
+
+model Deliverable {
+  id        Int  @id @default(autoincrement())
+  projectId Int?
+
+  name        String
+  description String @default("")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("deliverable")
+}
+
 model UserStory {
-  id      Int @id
+  id      Int @id @default(autoincrement())
   project Int
 
   name        String
@@ -73,7 +129,7 @@ model UserStory {
 }
 
 model PlanningPoker {
-  id      Int @id
+  id      Int @id @default(autoincrement())
   storyId Int
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -83,7 +139,7 @@ model PlanningPoker {
 }
 
 model Notes {
-  id        Int    @id
+  id        Int    @id @default(autoincrement())
   note      String
   points    Int
   sessionId Int
