@@ -7,6 +7,10 @@ function init(router) {
   router.get("/tables/:table", async (context, next) => {
     const tableName = context.params.table;
 
+    if (tablename.startsWith("__")) {
+      context.throw(404, "No table with that name!");
+    }
+
     /** @type {import("@prisma/client").PrismaClient} */
     const Prisma = context.prisma;
 
@@ -36,6 +40,10 @@ function init(router) {
   });
   router.put("/tables/:table", async (context, next) => {
     const tableName = context.params.table;
+
+    if (tablename.startsWith("__")) {
+      context.throw(404, "No table with that name!");
+    }
 
     /** @type {import("@prisma/client").PrismaClient} */
     const Prisma = context.prisma;
@@ -71,6 +79,10 @@ function init(router) {
   router.post("/tables/:table", async (context, next) => {
     const tableName = context.params.table;
 
+    if (tablename.startsWith("__")) {
+      context.throw(404, "No table with that name!");
+    }
+
     /** @type {import("@prisma/client").PrismaClient} */
     const Prisma = context.prisma;
 
@@ -103,6 +115,10 @@ function init(router) {
 
   router.del("/tables/:table", async (context, next) => {
     const tableName = context.params.table;
+
+    if (tablename.startsWith("__")) {
+      context.throw(404, "No table with that name!");
+    }
 
     /** @type {import("@prisma/client").PrismaClient} */
     const Prisma = context.prisma;
