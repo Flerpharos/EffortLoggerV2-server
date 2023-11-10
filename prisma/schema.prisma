@@ -109,6 +109,9 @@ model EffortCategory {
   name        String
   description String @default("")
 
+  lifeCycle   Int?
+  deliverable Int?
+
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 

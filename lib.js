@@ -56,7 +56,8 @@ async function authenticate(context, next) {
 
       const { statusCode, message } = err;
 
-      context.status = statusCode;
+      const status = parseInt(statusCode);
+      context.status = Number.isNaN(status) ? 500 : status;
 
       if (statusCode == 500) {
         throw err;
