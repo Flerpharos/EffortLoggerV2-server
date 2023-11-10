@@ -16,6 +16,7 @@ const { authenticate } = require("./lib.js");
 
 // app.context.auth = getAuth();
 app.context.prisma = prisma;
+console.log(prisma.ModelName);
 
 app.use(cors({ exposeHeaders: "x-error-message" }));
 
