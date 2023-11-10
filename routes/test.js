@@ -14,6 +14,8 @@ function init(router) {
       context.throw(404, `No table with that name (${tableName})!`);
     }
 
+    console.log(tableName);
+
     const table = Prisma[tableName];
 
     const id = context.headers["x-data-id"];
