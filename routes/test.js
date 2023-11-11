@@ -4,21 +4,21 @@
 function init(router) {
   const MAX_ROWS = 100;
 
-  router.get("/tables/:table", async (context, next) => {
-    const tableName = context.params.table;
-
+  function getTable(context, tableName) {
     if (tableName.startsWith("__")) {
       context.throw(404, `No table with that name (${tableName})!`);
     }
 
-    /** @type {import("@prisma/client").PrismaClient} */
-    const Prisma = context.prisma;
-
-    const table = Prisma[tableName];
+    const table = context.prisma[tableName];
 
     if (table == undefined || table == null) {
       context.throw(404, `No table with that name (${tableName})!`);
     }
+    return table;
+  }
+
+  router.get("/tables/:table", async (context, next) => {
+    const table = getTable(context, context.params.table);
 
     const id = context.headers["x-data-id"];
 
@@ -39,20 +39,7 @@ function init(router) {
     }
   });
   router.put("/tables/:table", async (context, next) => {
-    const tableName = context.params.table;
-
-    if (tableName.startsWith("__")) {
-      context.throw(404, `No table with that name (${tableName})!`);
-    }
-
-    /** @type {import("@prisma/client").PrismaClient} */
-    const Prisma = context.prisma;
-
-    const table = Prisma[tableName];
-
-    if (table == undefined || table == null) {
-      context.throw(404, `No table with that name (${tableName})!`);
-    }
+    const table = getTable(context, context.params.table);
 
     const count = await table.count();
     if (count >= MAX_ROWS) {
@@ -77,21 +64,7 @@ function init(router) {
     }
   });
   router.post("/tables/:table", async (context, next) => {
-    const tableName = context.params.table;
-
-    if (tableName.startsWith("__")) {
-      context.throw(404, `No table with that name (${tableName})!`);
-    }
-
-    /** @type {import("@prisma/client").PrismaClient} */
-    const Prisma = context.prisma;
-    try {
-      const table = Prisma[tableName];
-    } catch (err) {
-      context.throw(404, `No table with that name (${tableName})!`);
-    }
-    if (table == undefined || table == null) {
-    }
+    const table = getTable(context, context.params.table);
 
     const id = context.headers["x-data-id"];
 
@@ -115,20 +88,7 @@ function init(router) {
   });
 
   router.del("/tables/:table", async (context, next) => {
-    const tableName = context.params.table;
-
-    if (tableName.startsWith("__")) {
-      context.throw(404, `No table with that name (${tableName})!`);
-    }
-
-    /** @type {import("@prisma/client").PrismaClient} */
-    const Prisma = context.prisma;
-
-    const table = Prisma[tableName];
-
-    if (table == undefined || table == null) {
-      context.throw(404, `No table with that name (${tableName})!`);
-    }
+    const table = getTable(context, context.params.table);
 
     const id = context.headers["x-data-id"];
 
