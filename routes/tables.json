@@ -1,0 +1,14 @@
+{
+  "user": "user",
+  "effortlog": "effortLog",
+  "defectlog": "defectLog",
+  "project": "project",
+  "lifecycle": "lifeCycle",
+  "defectcategory": "defectCategory",
+  "effortcategory": "effortCategory",
+  "deliverable": "deliverable",
+  "userstory": "userStory",
+  "planningpoker": "planningPoker",
+  "planningpokerround": "planningPokerRound",
+  "notes": "notes"
+}

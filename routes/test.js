@@ -1,5 +1,6 @@
 // const { authorize } = require("../lib.js");
 // const { randomBytes } = require("crypto");
+const mapping = require("./tables.json");
 
 function init(router) {
   const MAX_ROWS = 100;
@@ -9,11 +10,16 @@ function init(router) {
       context.throw(404, `No table with that name (${tableName})!`);
     }
 
-    const table = context.prisma[tableName];
+    let table = context.prisma[tableName];
+
+    if (table == undefined || table == null) {
+      table = context.prisma[mapping[tableName.toLowerCase()]];
+    }
 
     if (table == undefined || table == null) {
       context.throw(404, `No table with that name (${tableName})!`);
     }
+
     return table;
   }
 
