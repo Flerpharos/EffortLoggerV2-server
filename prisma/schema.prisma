@@ -43,6 +43,7 @@ model EffortLog {
   effortCategory Int
   deliverable    Int
   project        Int
+  user           Int
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -141,6 +142,7 @@ model UserStory {
 
   name        String
   description String
+  points      Int?
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -171,16 +173,4 @@ model PlanningPokerRound {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("planningpokerround")
-}
-
-model Notes {
-  id        Int    @id @default(autoincrement())
-  note      String
-  points    Int
-  sessionId Int
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  @@map("notes")
 }
