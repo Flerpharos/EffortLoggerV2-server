@@ -16,7 +16,7 @@ async function authenticate(context, next) {
   const [type, token] = auth.split(" ");
 
   if (type != "Bearer") {
-    // context.set("WWW-Authenticate", "Bearer realm=hands.flerp.dev");
+    // context.set("WWW-Authenticate", "Bearer realm=cse360.flerp.dev");
     context.throw(401, "Wrong Authorization Type");
   }
 
@@ -73,7 +73,7 @@ async function authenticate(context, next) {
   } catch (err) {
     // context.set(
     //   "WWW-Authenticate",
-    //   `Bearer realm=hands.flerp.dev,error=invalid_token,error_description=${err.message}`
+    //   `Bearer realm=cse360.flerp.dev,error=invalid_token,error_description=${err.message}`
     // );
     console.error(err);
 
