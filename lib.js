@@ -34,7 +34,10 @@ async function authenticate(context, next) {
 
     const [username, password] = atob(token).split(" ", 2);
 
-    if (username == "temporary" && password == "also_temporary");
+    if (
+      username == process.env.BEARER_UNAME &&
+      password == process.env.BEARER_PASWD
+    );
     else throw new Error("Incorrect token");
 
     // const { uid } = context.state.token;
