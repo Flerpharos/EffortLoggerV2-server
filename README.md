@@ -14,7 +14,7 @@ Unencrypted, unhashed password storage because that was deemed easier than manag
 3. Edit `prisma/stores.sqlite` to include rows in the User table
 4. Restart Node.js runtime on `index.js`.
 5. Expose port 8180, or use a reverse proxy to expose it to the wider world.
-6. [Optional] Daemonize node process, or use PM2 or other process manager to keep server alive.
+6. [Optional] Daemonize node process, or use PM2 or other process manager to keep server alive. (Or you could Dockerize it if you're crazy).
 
 ## Requirements
 
