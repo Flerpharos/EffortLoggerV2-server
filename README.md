@@ -17,8 +17,8 @@ Unencrypted, unhashed password storage because that was deemed easier than manag
 
 ## Requirements
 
-PNpM ^8.7.0
-Node.js ^20.5.0
+- PNpM ^8.7.0
+- Node.js ^20.5.0
 
 ## License
 
