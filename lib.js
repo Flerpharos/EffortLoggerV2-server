@@ -89,6 +89,10 @@ async function authenticate(context, next) {
  * @returns {Promise<boolean>}
  */
 async function authorize(context, serviceName) {
+  // TODO
+
+  return 1;
+
   /** @type {import("@prisma/client").PrismaClient} */
   const Prisma = context.prisma;
 
@@ -99,15 +103,11 @@ async function authorize(context, serviceName) {
   //     },
   //   });
 
-  // TODO
-
-  return 1;
-
   if (!Service) {
     throw new Error(`No such service ${serviceName}`);
   }
 
-  /** @type {{id: string; email: string; discord: string; name: string; permission: number;}?} */
+  /** @type {{permission: number;}?} */
   const User = context.state.user;
 
   return User?.permission ?? permission.DEFAULT >= Service.permission;
