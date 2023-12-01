@@ -31,7 +31,6 @@ model EffortLog {
   effortCategory Int
   deliverable    Int
   project        Int
-  user           Int
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -130,7 +129,7 @@ model UserStory {
 
   name        String
   description String
-  points      Int?
+  points      Int
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
